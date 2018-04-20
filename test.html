@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{margin:0;padding:0;}
+    html,body{
+        height: 100%;
+    }
+    #app{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .wrap{
+        height: 200px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .item{
+        text-align: center;
+        width: 100%;
+    }
+</style>
+<body>
+    <div id="app">
+        <div class="wrap">
+            <div class="item">
+                <input class="i" type="text" v-model="value">
+            </div>
+            <div class="item">
+                <p class="t">{{value}}</p>
+            </div>
+            <div class="item">
+                <button v-on:click="eventTest">改变value吧！</button>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 注意引入的顺序，mvvm中依赖Compile构造函数 -->
+<script src="./observer.js"></script>
+<script src="./watcher.js"></script>
+<script src="./compile.js"></script>
+<script src="./mvvm.js"></script>
+<script>
+    var vm = new mvvm({
+        el:'#app',
+        data:{
+            value:'这里是初始值'
+        },
+        methods:{
+            eventTest(){
+                // this.value其实被代理到了this.data.value
+                this.value = '我们自己得MVVM实例的绑定的callback执行了'
+            }
+        }
+    })
+</script>
+</html>
